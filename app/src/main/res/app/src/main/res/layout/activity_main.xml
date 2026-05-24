@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#121212">
 
-    <!-- Thanh địa chỉ thiết kế nút to cho ô tô -->
+    <!-- Thanh địa chỉ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +34,28 @@
             android:layout_height="48dp"
             android:text="Đi"
             app:backgroundTint="#007E33"/>
+    </LinearLayout>
+
+    <!-- Thanh Bookmark (Lối tắt truy cập nhanh) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        android:background="#1F1F1F">
+
+        <Button
+            android:id="@+id/btnYouTube"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="YouTube"
+            app:backgroundTint="#CC0000"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+            
+        <!-- Bạn có thể copy thêm các nút Bookmark khác đặt ở đây nếu cần -->
     </LinearLayout>
 
     <!-- Vùng hiển thị nội dung trang Web -->
