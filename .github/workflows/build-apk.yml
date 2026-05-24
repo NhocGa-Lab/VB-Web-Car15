@@ -1,0 +1,32 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ "main" ] # Hoặc "master" tùy theo nhánh chính của bạn
+  workflow_dispatch: # Cho phép bấm nút chạy thủ công
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout mã nguồn
+      uses: actions/checkout@v4
+
+    - name: Thiết lập Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17' # Thay đổi phiên bản Java nếu dự án cũ hơn
+
+    - name: Cấp quyền cho Gradle
+      run: chmod +x gradlew
+
+    - name: Biên dịch file APK (Debug)
+      run: ./gradlew assembleDebug
+
+    - name: Tải file APK lên GitHub để download
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-app-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
