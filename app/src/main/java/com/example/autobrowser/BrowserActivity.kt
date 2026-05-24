@@ -15,6 +15,7 @@ class BrowserActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var edtUrl: EditText
     private lateinit var btnGo: Button
+    private lateinit var btnYouTube: Button // Thêm biến cho nút YouTube
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,7 @@ class BrowserActivity : AppCompatActivity() {
         webView = findViewById(R.id.webView)
         edtUrl = findViewById(R.id.edtUrl)
         btnGo = findViewById(R.id.btnGo)
+        btnYouTube = findViewById(R.id.btnYouTube) // Ánh xạ nút từ XML
 
         // Cấu hình tối ưu cho WebView trên xe hơi
         val webSettings: WebSettings = webView.settings
@@ -32,8 +34,11 @@ class BrowserActivity : AppCompatActivity() {
         webSettings.domStorageEnabled = true
         webSettings.loadWithOverviewMode = true
         webSettings.useWideViewPort = true
+        
+        // Hỗ trợ phát video tự động không cần người dùng click kích hoạt
+        webSettings.mediaPlaybackRequiresUserGesture = false 
 
-        // Giữ luồng duyệt web luôn ở trong ứng dụng, không mở app Chrome ngoài
+        // Giữ luồng duyệt web luôn ở trong ứng dụng
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 url?.let { view?.loadUrl(it) }
@@ -52,7 +57,7 @@ class BrowserActivity : AppCompatActivity() {
             navigateToUrl()
         }
 
-        // Xử lý sự kiện khi bấm nút "Enter/Go" trên bàn phím ảo của xe
+        // Xử lý sự kiện khi bấm nút "Enter/Go" trên bàn phím ảo
         edtUrl.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
                 navigateToUrl()
@@ -60,6 +65,12 @@ class BrowserActivity : AppCompatActivity() {
             } else {
                 false
             }
+        }
+
+        // Xử lý sự kiện khi nhấn nút Bookmark YouTube
+        btnYouTube.setOnClickListener {
+            webView.loadUrl("https://youtube.com")
+            edtUrl.clearFocus()
         }
 
         // Trang chủ mặc định khi mở app
